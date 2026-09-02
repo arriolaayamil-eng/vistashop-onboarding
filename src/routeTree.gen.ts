@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CuentaRouteImport } from './routes/cuenta'
 import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as NegocioRouteImport } from './routes/negocio'
+import { Route as PagoRouteImport } from './routes/pago'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const NegocioRoute = NegocioRouteImport.update({
   path: '/negocio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PagoRoute = PagoRouteImport.update({
+  id: '/pago',
+  path: '/pago',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cuenta': typeof CuentaRoute
   '/entrar': typeof EntrarRoute
   '/negocio': typeof NegocioRoute
+  '/pago': typeof PagoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cuenta': typeof CuentaRoute
   '/entrar': typeof EntrarRoute
   '/negocio': typeof NegocioRoute
+  '/pago': typeof PagoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/cuenta': typeof CuentaRoute
   '/entrar': typeof EntrarRoute
   '/negocio': typeof NegocioRoute
+  '/pago': typeof PagoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cuenta' | '/entrar' | '/negocio'
+  fullPaths: '/' | '/cuenta' | '/entrar' | '/negocio' | '/pago'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cuenta' | '/entrar' | '/negocio'
-  id: '__root__' | '/' | '/cuenta' | '/entrar' | '/negocio'
+  to: '/' | '/cuenta' | '/entrar' | '/negocio' | '/pago'
+  id: '__root__' | '/' | '/cuenta' | '/entrar' | '/negocio' | '/pago'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   CuentaRoute: typeof CuentaRoute
   EntrarRoute: typeof EntrarRoute
   NegocioRoute: typeof NegocioRoute
+  PagoRoute: typeof PagoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NegocioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pago': {
+      id: '/pago'
+      path: '/pago'
+      fullPath: '/pago'
+      preLoaderRoute: typeof PagoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   CuentaRoute: CuentaRoute,
   EntrarRoute: EntrarRoute,
   NegocioRoute: NegocioRoute,
+  PagoRoute: PagoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
