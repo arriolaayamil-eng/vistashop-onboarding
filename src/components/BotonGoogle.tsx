@@ -27,7 +27,6 @@ export default function BotonGoogle({
         <GoogleLogin
           width="320"
           text="continue_with"
-          locale="es"
           onSuccess={(res) => {
             if (res.credential) onCredential(res.credential);
             else onError("No pudimos validar tu cuenta de Google. Probá con tu email.");
