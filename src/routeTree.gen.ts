@@ -10,33 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConfirmacionRouteImport } from './routes/confirmacion'
+import { Route as CuentaRouteImport } from './routes/cuenta'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as NegocioRouteImport } from './routes/negocio'
+import { Route as PagoRouteImport } from './routes/pago'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfirmacionRoute = ConfirmacionRouteImport.update({
+  id: '/confirmacion',
+  path: '/confirmacion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CuentaRoute = CuentaRouteImport.update({
+  id: '/cuenta',
+  path: '/cuenta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NegocioRoute = NegocioRouteImport.update({
+  id: '/negocio',
+  path: '/negocio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagoRoute = PagoRouteImport.update({
+  id: '/pago',
+  path: '/pago',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/confirmacion': typeof ConfirmacionRoute
+  '/cuenta': typeof CuentaRoute
+  '/entrar': typeof EntrarRoute
+  '/negocio': typeof NegocioRoute
+  '/pago': typeof PagoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/confirmacion': typeof ConfirmacionRoute
+  '/cuenta': typeof CuentaRoute
+  '/entrar': typeof EntrarRoute
+  '/negocio': typeof NegocioRoute
+  '/pago': typeof PagoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/confirmacion': typeof ConfirmacionRoute
+  '/cuenta': typeof CuentaRoute
+  '/entrar': typeof EntrarRoute
+  '/negocio': typeof NegocioRoute
+  '/pago': typeof PagoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/confirmacion' | '/cuenta' | '/entrar' | '/negocio' | '/pago'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/confirmacion' | '/cuenta' | '/entrar' | '/negocio' | '/pago'
+  id:
+    | '__root__'
+    | '/'
+    | '/confirmacion'
+    | '/cuenta'
+    | '/entrar'
+    | '/negocio'
+    | '/pago'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConfirmacionRoute: typeof ConfirmacionRoute
+  CuentaRoute: typeof CuentaRoute
+  EntrarRoute: typeof EntrarRoute
+  NegocioRoute: typeof NegocioRoute
+  PagoRoute: typeof PagoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +106,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/confirmacion': {
+      id: '/confirmacion'
+      path: '/confirmacion'
+      fullPath: '/confirmacion'
+      preLoaderRoute: typeof ConfirmacionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cuenta': {
+      id: '/cuenta'
+      path: '/cuenta'
+      fullPath: '/cuenta'
+      preLoaderRoute: typeof CuentaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/negocio': {
+      id: '/negocio'
+      path: '/negocio'
+      fullPath: '/negocio'
+      preLoaderRoute: typeof NegocioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pago': {
+      id: '/pago'
+      path: '/pago'
+      fullPath: '/pago'
+      preLoaderRoute: typeof PagoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConfirmacionRoute: ConfirmacionRoute,
+  CuentaRoute: CuentaRoute,
+  EntrarRoute: EntrarRoute,
+  NegocioRoute: NegocioRoute,
+  PagoRoute: PagoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
