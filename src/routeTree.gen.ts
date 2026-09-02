@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CuentaRouteImport } from './routes/cuenta'
 import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as NegocioRouteImport } from './routes/negocio'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const EntrarRoute = EntrarRouteImport.update({
   path: '/entrar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NegocioRoute = NegocioRouteImport.update({
+  id: '/negocio',
+  path: '/negocio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cuenta': typeof CuentaRoute
   '/entrar': typeof EntrarRoute
+  '/negocio': typeof NegocioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cuenta': typeof CuentaRoute
   '/entrar': typeof EntrarRoute
+  '/negocio': typeof NegocioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cuenta': typeof CuentaRoute
   '/entrar': typeof EntrarRoute
+  '/negocio': typeof NegocioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cuenta' | '/entrar'
+  fullPaths: '/' | '/cuenta' | '/entrar' | '/negocio'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cuenta' | '/entrar'
-  id: '__root__' | '/' | '/cuenta' | '/entrar'
+  to: '/' | '/cuenta' | '/entrar' | '/negocio'
+  id: '__root__' | '/' | '/cuenta' | '/entrar' | '/negocio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CuentaRoute: typeof CuentaRoute
   EntrarRoute: typeof EntrarRoute
+  NegocioRoute: typeof NegocioRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EntrarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/negocio': {
+      id: '/negocio'
+      path: '/negocio'
+      fullPath: '/negocio'
+      preLoaderRoute: typeof NegocioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CuentaRoute: CuentaRoute,
   EntrarRoute: EntrarRoute,
+  NegocioRoute: NegocioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
