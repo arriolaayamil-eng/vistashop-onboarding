@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate, ClientOnly } from "@tanstack/react-router
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Lock } from "lucide-react";
 import { FlowLayout } from "@/components/FlowLayout";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   crearCheckout,
@@ -113,9 +112,14 @@ function Pago() {
 
         <section className="space-y-3">
           <h2 className="text-sm font-medium">Datos de la tarjeta</h2>
+          <p className="text-xs text-muted-foreground">
+            Marcá las dos casillas de abajo y completá la tarjeta: el botón dice “Confirmar
+            suscripción — $99/mes”.
+          </p>
           <ClientOnly fallback={<div className="h-40 animate-pulse rounded-md bg-muted" />}>
             <Suspense fallback={<div className="h-40 animate-pulse rounded-md bg-muted" />}>
               <FormularioTarjeta
+                deshabilitado={!todoAceptado || enviando}
                 monto={cotizacion?.monto ?? 0}
                 email={email}
                 onToken={confirmar}
@@ -154,12 +158,7 @@ function Pago() {
 
         {error && <p className="text-sm text-destructive">{error}</p>}
 
-        <p className="text-xs text-muted-foreground">
-          Al completar la tarjeta arriba confirmás tu suscripción — $99/mes.
-        </p>
-        <Button size="lg" className="w-full" disabled={!todoAceptado || enviando}>
-          {enviando ? "Procesando…" : "Confirmar suscripción — $99/mes"}
-        </Button>
+        {enviando && <p className="text-sm text-muted-foreground">Procesando tu pago…</p>}
       </div>
     </FlowLayout>
   );

@@ -8,11 +8,13 @@ import { initMercadoPago, CardPayment } from "@mercadopago/sdk-react";
 export default function FormularioTarjeta({
   monto,
   email,
+  deshabilitado,
   onToken,
   onError,
 }: {
   monto: number;
   email: string;
+  deshabilitado: boolean;
   onToken: (token: string) => void;
   onError: (mensaje: string) => void;
 }) {
@@ -38,10 +40,15 @@ export default function FormularioTarjeta({
   if (!listo) return <div className="h-40 animate-pulse rounded-md bg-muted" />;
 
   return (
+    <div className={deshabilitado ? "pointer-events-none opacity-50" : undefined}>
     <CardPayment
       initialization={{ amount: monto, payer: { email } }}
       customization={{
-        visual: { hidePaymentButton: false, style: { theme: "default" } },
+        visual: {
+          hidePaymentButton: false,
+          style: { theme: "default" },
+          texts: { formSubmit: "Confirmar suscripción — $99/mes" },
+        },
       }}
       onSubmit={async (formData) => {
         const token = (formData as { token?: string }).token;
@@ -50,5 +57,6 @@ export default function FormularioTarjeta({
       }}
       onError={() => onError("No pudimos validar la tarjeta. Revisá los datos e intentá de nuevo.")}
     />
+    </div>
   );
 }
